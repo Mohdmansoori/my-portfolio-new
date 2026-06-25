@@ -13,7 +13,7 @@ const categoryColors = [
 
 export default function Skills() {
   return (
-    <AnimatedSection id="skills" className="relative px-6 py-24">
+    <AnimatedSection id="skills" className="section-wrap relative">
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-cyan-500/5 to-transparent" />
       <div className="relative mx-auto max-w-6xl">
         <SectionHeading
@@ -22,14 +22,14 @@ export default function Skills() {
           description="Technologies and tools I use to build modern, scalable applications."
         />
 
-        <StaggerContainer className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <StaggerContainer className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
           {skills.map((group, i) => (
             <StaggerItem key={group.category}>
               <motion.div
                 whileHover={{ y: -6 }}
-                className={`h-full rounded-2xl border bg-gradient-to-br p-6 ${categoryColors[i % categoryColors.length]}`}
+                className={`h-full rounded-2xl border bg-gradient-to-br p-4 sm:p-5 lg:p-6 ${categoryColors[i % categoryColors.length]}`}
               >
-                <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-300">
+                <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-300 sm:mb-4 sm:text-sm">
                   {group.category}
                 </h3>
                 <div className="flex flex-wrap gap-2">

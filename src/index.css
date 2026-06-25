@@ -38,3 +38,17 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #475569;
 }
+
+@utility section-wrap {
+  padding-inline: calc(var(--spacing) * 4);
+  padding-block: calc(var(--spacing) * 12);
+
+  @media (width >= 40rem) {
+    padding-inline: calc(var(--spacing) * 6);
+    padding-block: calc(var(--spacing) * 14);
+  }
+
+  @media (width >= 64rem) {
+    padding-block: calc(var(--spacing) * 16);
+  }
+}

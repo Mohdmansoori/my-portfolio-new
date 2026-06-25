@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { Download, Menu, X } from 'lucide-react'
 import { navLinks, personal } from '../data/portfolio'
+import resumePdf from '../assets/Mohammad_Anas_Mansoori_React_Js.pdf'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -31,6 +32,13 @@ export default function Navbar() {
     return () => observer.disconnect()
   }, [])
 
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [mobileOpen])
+
   const handleNav = (href) => {
     setMobileOpen(false)
     document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
@@ -50,17 +58,17 @@ export default function Navbar() {
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
           scrolled
-            ? 'border-b border-white/10 bg-slate-950/80 py-3 shadow-lg shadow-black/20 backdrop-blur-xl'
-            : 'bg-transparent py-5'
+            ? 'border-b border-white/10 bg-slate-950/80 py-2.5 shadow-lg shadow-black/20 backdrop-blur-xl sm:py-3'
+            : 'bg-transparent py-3 sm:py-5'
         }`}
       >
-        <nav className="mx-auto flex max-w-6xl items-center justify-between px-6">
+        <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 sm:px-6">
           <button
             type="button"
             onClick={() => handleNav('#home')}
             className="group flex items-center gap-3"
           >
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400 to-violet-500 text-sm font-bold text-slate-950 transition-transform group-hover:scale-105">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400 to-violet-500 text-xs font-bold text-slate-950 transition-transform group-hover:scale-105 sm:h-10 sm:w-10 sm:text-sm">
               {initials}
             </span>
             <span className="hidden font-semibold text-white sm:block">Anas</span>
@@ -91,13 +99,23 @@ export default function Navbar() {
             ))}
           </ul>
 
-          <button
-            type="button"
-            onClick={() => handleNav('#contact')}
-            className="hidden rounded-xl bg-gradient-to-r from-cyan-500 to-violet-500 px-5 py-2.5 text-sm font-semibold text-slate-950 transition-all hover:shadow-lg hover:shadow-cyan-500/25 md:block"
-          >
-            Hire Me
-          </button>
+          <div className="hidden items-center gap-2 md:flex">
+            <button
+              type="button"
+              onClick={() => handleNav('#contact')}
+              className="rounded-xl bg-gradient-to-r from-cyan-500 to-violet-500 px-5 py-2.5 text-sm font-semibold text-slate-950 transition-all hover:shadow-lg hover:shadow-cyan-500/25"
+            >
+              Hire Me
+            </button>
+            <a
+              href={resumePdf}
+              download="Mohammad_Anas_Mansoori_React_Js.pdf"
+              className="flex items-center gap-1.5 rounded-xl border border-white/15 bg-white/5 px-4 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-cyan-500/40 hover:bg-white/10"
+            >
+              <Download size={16} />
+              Resume
+            </a>
+          </div>
 
           <button
             type="button"
@@ -116,20 +134,42 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="fixed inset-x-0 top-[72px] z-40 border-b border-white/10 bg-slate-950/95 p-4 backdrop-blur-xl md:hidden"
+            className="fixed inset-x-0 top-[60px] z-40 max-h-[calc(100dvh-60px)] overflow-y-auto border-b border-white/10 bg-slate-950/95 p-3 backdrop-blur-xl sm:top-[72px] md:hidden"
           >
-            <ul className="flex flex-col gap-1">
+            <ul className="flex flex-col gap-0.5">
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <button
                     type="button"
                     onClick={() => handleNav(link.href)}
-                    className="w-full rounded-lg px-4 py-3 text-left text-slate-300 hover:bg-white/5 hover:text-white"
+                    className={`w-full rounded-lg px-4 py-2.5 text-left text-sm transition-colors ${
+                      activeSection === link.href.slice(1)
+                        ? 'bg-cyan-500/10 text-cyan-400'
+                        : 'text-slate-300 hover:bg-white/5 hover:text-white'
+                    }`}
                   >
                     {link.label}
                   </button>
                 </li>
               ))}
+              <li className="mt-2 space-y-2 border-t border-white/10 pt-2">
+                <button
+                  type="button"
+                  onClick={() => handleNav('#contact')}
+                  className="w-full rounded-xl bg-gradient-to-r from-cyan-500 to-violet-500 px-4 py-2.5 text-sm font-semibold text-slate-950"
+                >
+                  Hire Me
+                </button>
+                <a
+                  href={resumePdf}
+                  download="Mohammad_Anas_Mansoori_React_Js.pdf"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-2.5 text-sm font-semibold text-white"
+                >
+                  <Download size={16} />
+                  Download Resume
+                </a>
+              </li>
             </ul>
           </motion.div>
         )}

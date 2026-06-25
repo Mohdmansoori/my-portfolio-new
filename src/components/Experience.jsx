@@ -6,7 +6,7 @@ import { experience } from '../data/portfolio'
 
 export default function Experience() {
   return (
-    <AnimatedSection id="experience" className="relative px-6 py-24">
+    <AnimatedSection id="experience" className="section-wrap relative">
       <div className="mx-auto max-w-4xl">
         <SectionHeading
           label="Experience"
@@ -15,20 +15,25 @@ export default function Experience() {
         />
 
         <div className="relative">
-          <div className="absolute left-6 top-0 hidden h-full w-px bg-gradient-to-b from-cyan-500/50 via-violet-500/30 to-transparent md:left-1/2 md:block md:-translate-x-px" />
+          {/* Desktop center timeline */}
+          <div className="absolute left-1/2 top-0 hidden h-full w-px -translate-x-px bg-gradient-to-b from-cyan-500/50 via-violet-500/30 to-transparent md:block" />
 
-          <div className="flex flex-col gap-10">
+          {/* Mobile left timeline */}
+          <div className="absolute left-[7px] top-2 h-[calc(100%-8px)] w-px bg-gradient-to-b from-cyan-500/50 via-violet-500/30 to-transparent md:hidden" />
+
+          <div className="flex flex-col gap-4 sm:gap-5 md:gap-6">
             {experience.map((job, i) => (
-              <FadeIn key={job.company} delay={i * 0.1}>
+              <FadeIn key={job.company} delay={i * 0.08}>
                 <motion.div
-                  whileHover={{ scale: 1.01 }}
-                  className={`relative md:flex md:gap-8 ${
+                  whileHover={{ scale: 1.005 }}
+                  className={`relative md:flex md:gap-6 ${
                     i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
                   }`}
                 >
                   <div className="hidden w-1/2 md:block" />
 
-                  <div className="absolute left-6 top-8 z-10 hidden h-4 w-4 -translate-x-1/2 rounded-full border-2 border-cyan-400 bg-slate-950 md:left-1/2 md:block">
+                  {/* Desktop timeline dot */}
+                  <div className="absolute left-1/2 top-6 z-10 hidden h-3.5 w-3.5 -translate-x-1/2 rounded-full border-2 border-cyan-400 bg-slate-950 md:block">
                     <motion.span
                       className="absolute inset-0 rounded-full bg-cyan-400"
                       animate={{ scale: [1, 1.8, 1], opacity: [0.6, 0, 0.6] }}
@@ -36,31 +41,36 @@ export default function Experience() {
                     />
                   </div>
 
-                  <div className="md:w-1/2">
-                    <div className="ml-12 rounded-2xl border border-white/10 bg-slate-900/60 p-6 backdrop-blur-sm transition-colors hover:border-cyan-500/30 md:ml-0">
-                      <div className="mb-3 flex flex-wrap items-center gap-2">
-                        <span className="rounded-full bg-cyan-500/10 px-3 py-1 text-xs font-medium text-cyan-400">
+                  {/* Mobile timeline dot */}
+                  <div className="absolute left-0 top-6 z-10 h-3.5 w-3.5 rounded-full border-2 border-cyan-400 bg-slate-950 md:hidden">
+                    <span className="absolute inset-0.5 rounded-full bg-cyan-400" />
+                  </div>
+
+                  <div className="w-full pl-7 md:w-1/2 md:pl-0">
+                    <div className="rounded-2xl border border-white/10 bg-slate-900/60 p-4 backdrop-blur-sm transition-colors hover:border-cyan-500/30 sm:p-5 lg:p-6">
+                      <div className="mb-2 flex flex-wrap items-center gap-2 sm:mb-3">
+                        <span className="rounded-full bg-cyan-500/10 px-2.5 py-0.5 text-[11px] font-medium text-cyan-400 sm:px-3 sm:py-1 sm:text-xs">
                           {job.period}
                         </span>
-                        <span className="flex items-center gap-1 text-xs text-slate-500">
-                          <MapPin size={12} />
+                        <span className="flex items-center gap-1 text-[11px] text-slate-500 sm:text-xs">
+                          <MapPin size={11} className="shrink-0" />
                           {job.location}
                         </span>
                       </div>
 
-                      <div className="mb-1 flex items-center gap-2">
-                        <Briefcase size={16} className="text-violet-400" />
-                        <h3 className="text-lg font-bold text-white">{job.role}</h3>
+                      <div className="mb-0.5 flex items-start gap-2 sm:items-center">
+                        <Briefcase size={15} className="mt-0.5 shrink-0 text-violet-400 sm:mt-0" />
+                        <h3 className="text-base font-bold text-white sm:text-lg">{job.role}</h3>
                       </div>
-                      <p className="mb-4 text-sm font-medium text-violet-400">{job.company}</p>
+                      <p className="mb-3 text-xs font-medium text-violet-400 sm:mb-4 sm:text-sm">{job.company}</p>
 
-                      <ul className="space-y-2">
+                      <ul className="space-y-1.5 sm:space-y-2">
                         {job.highlights.map((point) => (
                           <li
                             key={point.slice(0, 40)}
-                            className="flex gap-2 text-sm leading-relaxed text-slate-400"
+                            className="flex gap-2 text-xs leading-relaxed text-slate-400 sm:text-sm"
                           >
-                            <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-cyan-400" />
+                            <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-cyan-400" />
                             {point}
                           </li>
                         ))}

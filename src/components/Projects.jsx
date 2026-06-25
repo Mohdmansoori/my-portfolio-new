@@ -6,7 +6,7 @@ import { projects } from '../data/portfolio'
 
 export default function Projects() {
   return (
-    <AnimatedSection id="projects" className="relative px-6 py-24">
+    <AnimatedSection id="projects" className="section-wrap relative">
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-violet-500/5 to-transparent" />
       <div className="relative mx-auto max-w-6xl">
         <SectionHeading
@@ -15,7 +15,7 @@ export default function Projects() {
           description="Real-world applications spanning FinTech, healthcare, agriculture, and e-commerce."
         />
 
-        <StaggerContainer className="grid gap-8 lg:grid-cols-2">
+        <StaggerContainer className="grid gap-4 sm:gap-5 lg:grid-cols-2 lg:gap-6">
           {projects.map((project) => (
             <StaggerItem key={project.name}>
               <motion.article
@@ -26,13 +26,13 @@ export default function Projects() {
                   className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 transition-opacity duration-500 group-hover:opacity-100`}
                 />
 
-                <div className="relative p-7">
-                  <div className="mb-4 flex items-start justify-between gap-4">
+                <div className="relative p-4 sm:p-5 lg:p-6">
+                  <div className="mb-3 flex items-start justify-between gap-3 sm:mb-4 sm:gap-4">
                     <div>
                       <span className={`text-xs font-semibold uppercase tracking-wider ${project.accent}`}>
                         {project.period}
                       </span>
-                      <h3 className="mt-1 text-xl font-bold text-white">{project.name}</h3>
+                      <h3 className="mt-1 text-lg font-bold text-white sm:text-xl">{project.name}</h3>
                       <p className="text-sm text-slate-400">{project.subtitle}</p>
                     </div>
                     <motion.div
@@ -43,9 +43,9 @@ export default function Projects() {
                     </motion.div>
                   </div>
 
-                  <p className="mb-5 text-sm leading-relaxed text-slate-400">{project.description}</p>
+                  <p className="mb-4 text-sm leading-relaxed text-slate-400 sm:mb-5">{project.description}</p>
 
-                  <ul className="mb-5 space-y-2">
+                  <ul className="mb-4 space-y-1.5 sm:mb-5 sm:space-y-2">
                     {project.highlights.map((point) => (
                       <li
                         key={point.slice(0, 40)}
